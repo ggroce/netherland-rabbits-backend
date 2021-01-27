@@ -7,19 +7,21 @@ const PRIVATE_KEY = process.env.GOOGLE_PRIVATE_KEY;
 
 const doc = new GoogleSpreadsheet(SPREADSHEET_ID);
 
-const handleInventoryGet = (req, res) => {
+// const spreadSheetData = {
+//   rows: [{}]
+// }
 
+const handleInventoryGet = (req, res) => {
   (async function () {
     await initGoogleAuth();
-    const returnedSheetInfo = await loadSheetInfo();
-    await loadCellInfo(returnedSheetInfo);
-    res.json(doc.title);
+    const mySheet = await loadSheetInfo();
+    const spreadSheetData = await populateSpreadSheetData(mySheet);
+    res.json(spreadSheetData);
   }());
 }
 
 async function initGoogleAuth() {
   console.log('trying init goog auth');
-
   try {
     await doc.useServiceAccountAuth({
       client_email: SERVICE_ACC_EMAIL,
@@ -28,21 +30,48 @@ async function initGoogleAuth() {
   } catch(err) {
     console.log('initGoogleAuth messed up!!!', err);
   }
-  
 }
 
 async function loadSheetInfo() {
   try {
     console.log('trying to load sheet information...');
     await doc.loadInfo();
-    console.log('Document title:', doc.title);
     const sheet = doc.sheetsById[SHEET_ID];
-    console.log('Number of reported rows:', sheet.rowCount);
     return sheet;
   } catch(err) {
     console.log('loadSheetInfo messed up!!!', err);
   }
 }
+
+async function populateSpreadSheetData(mySheet) {
+  try {
+    const rows = await mySheet.getRows();
+    const rowCount = rows[0].rowcount;
+    const spreadSheetArray = rows.map((row) => {
+      const record = {
+        name: row.name, 
+        type: row.type, 
+        DOB: row.DOB, 
+        status: row.status, 
+        awards: row.awards, 
+      }
+      return record;
+      // return row._rawData;
+    });
+    
+    console.log('row datas: ', spreadSheetArray);
+    console.log('rowCount: ', rowCount);
+    return spreadSheetArray;
+  } catch(err) {
+    console.log('populateSpreadSheetData messed up!!!', err);
+  }
+}
+
+
+
+
+
+
 
 async function loadCellInfo(sheet) {
   try {
