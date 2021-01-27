@@ -47,13 +47,21 @@ async function populateSpreadSheetData(mySheet) {
   try {
     const rows = await mySheet.getRows();
     const rowCount = rows[0].rowcount;
+    await mySheet.loadCells('B1:B50');
     const spreadSheetArray = rows.map((row) => {
+      // console.log('row?', row);
+      const imageCell = mySheet.getCellByA1(`B${row._rowNumber}`);
+      console.log('Row number: ', row._rowNumber - 1);
+      console.log('image data? ', imageCell.formula);
+      // console.log('formula maybe? ', row.image.valueType)
       const record = {
         name: row.name, 
+        image: imageCell.formula, 
         type: row.type, 
         DOB: row.DOB, 
         status: row.status, 
         awards: row.awards, 
+        sex: row.sex,
       }
       return record;
     });
