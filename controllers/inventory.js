@@ -56,7 +56,6 @@ async function populateSpreadSheetData(mySheet) {
         awards: row.awards, 
       }
       return record;
-      // return row._rawData;
     });
     
     console.log('row datas: ', spreadSheetArray);
@@ -67,12 +66,7 @@ async function populateSpreadSheetData(mySheet) {
   }
 }
 
-
-
-
-
-
-
+//currently unused /////////////////////////////////////////////////////
 async function loadCellInfo(sheet) {
   try {
     await sheet.loadCells('A2:M50');
