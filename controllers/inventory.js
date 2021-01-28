@@ -51,8 +51,8 @@ async function populateSpreadSheetData(mySheet) {
     const spreadSheetArray = rows.map((row) => {
       // console.log('row?', row);
       const imageCell = mySheet.getCellByA1(`B${row._rowNumber}`);
-      console.log('Row number: ', row._rowNumber - 1);
-      console.log('image data? ', imageCell.formula);
+      // console.log('Row number: ', row._rowNumber - 1);
+      // console.log('image data? ', imageCell.formula);
       // console.log('formula maybe? ', row.image.valueType)
       const record = {
         name: row.name, 
