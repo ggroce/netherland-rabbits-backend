@@ -43,7 +43,7 @@ const handeInquiryMail = (req, res) => {
     if (err) {
       console.log("Netherlandbunnies.com: error sending mail to destination: ", err);
       res.json({
-        status: 'fail'
+        status: 'error'
       });
     } else {
       console.log("Netherlandbunnies.com: Inquiry email sent from user. ");
@@ -52,6 +52,34 @@ const handeInquiryMail = (req, res) => {
       });
     }
   });
+
+  //maybe send auto responder on success too: 
+  // transporter.sendMail(mail, (err, data) => {
+  //   if (err) {
+  //     res.json({
+  //       status: 'fail'
+  //     })
+  //   } else {
+  //     res.json({
+  //        status: 'success'
+  //     })
+  
+  //     transporter.sendMail({
+  //       from: "<your email address>",
+  //       to: email,
+  //       subject: "Submission was successful",
+  //       text: `Thank you for contacting us!\n\nForm details\nName: ${name}\n Email: ${email}\n Message: ${message}`
+  //     }, function(error, info){
+  //       if(error) {
+  //         console.log(error);
+  //       } else{
+  //         console.log('Message sent: ' + info.response);
+  //       }
+  //     });
+  //   }
+  // });
+
+
 }
 
 module.exports = {
