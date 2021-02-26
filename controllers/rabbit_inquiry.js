@@ -35,8 +35,8 @@ const handleRabbitInquiry = (req, res) => {
     from: FROM_EMAIL_ADDRESS, 
     to: TO_EMAIL_ADDRESS, 
     subject: `NetherlandBunnies.com Inquiry from ${custName}`, 
-    text: `${custName}, (${custEmail}), is interested in ${rabbitName}!  
-    Here is what they had to say: ${custMessage}`, 
+    text: `${custName}, (${custEmail}), is interested in ${rabbitName}! \n\n` 
+      + `Here is what they had to say: \n    ${custMessage}`, 
   }
 
   transporter.sendMail(mailOptions, (err, data) => {
