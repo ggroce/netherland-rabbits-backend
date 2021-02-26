@@ -66,8 +66,8 @@ async function populateSpreadSheetData(mySheet) {
       return record;
     });
     
-    console.log('row datas: ', spreadSheetArray);
-    console.log('rowCount: ', rowCount);
+    // console.log('row datas: ', spreadSheetArray);
+    // console.log('rowCount: ', rowCount);
     return spreadSheetArray;
   } catch(err) {
     console.log('populateSpreadSheetData messed up!!!', err);

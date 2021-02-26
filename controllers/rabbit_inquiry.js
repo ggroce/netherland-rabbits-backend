@@ -19,24 +19,24 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-const handeInquiryMail = (req, res) => {
-  if (!req.body.name || !req.body.email) {
+const handleRabbitInquiry = (req, res) => {
+  if (!req.body.custName || !req.body.custEmail) {
     return res.status(400).json('Name and Email required for inquiry');
   }
   
-  const name = req.body.name;
-  const email = req.body.email;
+  const custName = req.body.custName;
+  const custEmail = req.body.custEmail;
+  const custMessage = req.body.custMessage;
   const rabbitName = req.body.rabbitName;
-  const message = req.body.message;
 
   //parse data here, then send 
 
   const mailOptions = {
     from: FROM_EMAIL_ADDRESS, 
     to: TO_EMAIL_ADDRESS, 
-    subject: `NetherlandBunnies.com Inquiry from ${name}`, 
-    text: `${name}, (${email}), is interested in ${rabbitName}!  
-    Here is what they had to say: ${message}`, 
+    subject: `NetherlandBunnies.com Inquiry from ${custName}`, 
+    text: `${custName}, (${custEmail}), is interested in ${rabbitName}!  
+    Here is what they had to say: ${custMessage}`, 
   }
 
   transporter.sendMail(mailOptions, (err, data) => {
@@ -78,10 +78,8 @@ const handeInquiryMail = (req, res) => {
   //     });
   //   }
   // });
-
-
 }
 
 module.exports = {
-  handeInquiryMail: handeInquiryMail
+  handleRabbitInquiry: handleRabbitInquiry
 }
