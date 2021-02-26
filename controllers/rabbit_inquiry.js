@@ -20,8 +20,8 @@ const transporter = nodemailer.createTransport({
 });
 
 const handleRabbitInquiry = (req, res) => {
-  if (!req.body.custName || !req.body.custEmail) {
-    return res.status(400).json('Name and Email required for inquiry');
+  if (!req.body.custName || !req.body.custEmail || !req.body.custMessage) {
+    return res.status(400).json('Name, Email, and short message required for inquiry');
   }
   
   const custName = req.body.custName;
