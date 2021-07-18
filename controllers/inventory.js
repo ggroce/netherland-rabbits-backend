@@ -7,10 +7,6 @@ const PRIVATE_KEY = process.env.GOOGLE_PRIVATE_KEY;
 
 const doc = new GoogleSpreadsheet(SPREADSHEET_ID);
 
-// const spreadSheetData = {
-//   rows: [{}]
-// }
-
 const handleInventoryGet = (req, res) => {
   (async function () {
     await initGoogleAuth();
@@ -21,25 +17,24 @@ const handleInventoryGet = (req, res) => {
 }
 
 async function initGoogleAuth() {
-  console.log('trying init goog auth');
   try {
     await doc.useServiceAccountAuth({
       client_email: SERVICE_ACC_EMAIL,
       private_key: PRIVATE_KEY.replace(/\\n/g, "\n"),
     });
   } catch(err) {
-    console.log('initGoogleAuth messed up!!!', err);
+    console.log('initGoogleAuth has failed: ', err);
   }
 }
 
 async function loadSheetInfo() {
   try {
-    console.log('trying to load sheet information...');
+    console.log('Loading sheet information from a request...');
     await doc.loadInfo();
     const sheet = doc.sheetsById[SHEET_ID];
     return sheet;
   } catch(err) {
-    console.log('loadSheetInfo messed up!!!', err);
+    console.log('loadSheetInfo has failed: ', err);
   }
 }
 
@@ -49,12 +44,9 @@ async function populateSpreadSheetData(mySheet) {
     const rowCount = rows[0].rowcount;
     await mySheet.loadCells('B1:B50');
     const spreadSheetArray = rows.map((row) => {
-      // console.log('row?', row);
       const imageCell = mySheet.getCellByA1(`B${row._rowNumber}`);
-      // console.log('Row number: ', row._rowNumber - 1);
-      // console.log('image data? ', imageCell.formula);
-      // console.log('formula maybe? ', row.image.valueType)
       const record = {
+        rabbitry: row.rabbitry,
         name: row.name, 
         image: imageCell.formula, 
         type: row.type, 
@@ -70,7 +62,7 @@ async function populateSpreadSheetData(mySheet) {
     // console.log('rowCount: ', rowCount);
     return spreadSheetArray;
   } catch(err) {
-    console.log('populateSpreadSheetData messed up!!!', err);
+    console.log('populateSpreadSheetData has failed: ', err);
   }
 }
 
@@ -80,7 +72,7 @@ async function loadCellInfo(sheet) {
     await sheet.loadCells('A2:M50');
     console.log('cell stats:', sheet.cellStats);
   } catch(err) {
-    console.log('loadCellInfo messed up!!!', err);
+    console.log('loadCellInfo has failed:', err);
   }
 }
 
