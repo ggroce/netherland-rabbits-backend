@@ -54,6 +54,7 @@ async function populateSpreadSheetData(mySheet) {
         status: row.status, 
         awards: row.awards, 
         sex: row.sex, 
+        details: row.details,
       }
       return record;
     });
