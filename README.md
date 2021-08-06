@@ -1,4 +1,12 @@
-# netherland-rabbits-backend
-Node.js backend for Netherland Rabbits website.  
+# NodeJS backend for [www.NetherlandBunnies.com](https://www.netherlandbunnies.com "NetherlandBunnies.com")  
+(frontend found [here](https://github.com/ggroce/netherland-rabbits-frontend "Frontend: netherland-rabbits-frontend"))
+
 <br>
-This backend exists to provide the frontend with inventory data, specifically a listing of Netherland Dwarf rabbits that are for sale.  The data includes names, DOBs, pedigree, awards received, etc.  The data is pulled from a Google spreadsheet and sent to the frontend as a JSON object, in an effort to make the inventory listing easy to manage for anyone that needs to edit the inventory, regardless of expertise.  
+Backend for Netherland Rabbits sales website, where users can see an up-to-date listing of available Netherland Dwarf rabbits for sale, find out more about the purchasing process, and fill out a contact form for more information.  
+
+## Details on the backend
+* NodeJS backend serving REST API for inventory queries and contact forms
+* Sendgrid nodemailer implementation used to forward inquries to website operator
+* Inventory on backend is fed from a Google Sheet
+  * Provided through google-spreadsheet package
+  * This makes editing of the website inventory trivial for the layperson
