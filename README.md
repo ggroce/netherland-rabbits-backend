@@ -5,7 +5,7 @@
 Backend for Netherland Rabbits sales website, where users can see an up-to-date listing of available Netherland Dwarf rabbits for sale, find out more about the purchasing process, and fill out a contact form for more information.  
 
 ### Details on the backend
-* NodeJS backend serving REST API for inventory queries and contact forms
+* NodeJS backend using Express to serve a REST API for inventory queries and contact forms
 * Sendgrid nodemailer implementation used to forward inquries to website operator
 * Inventory on backend is fed from a Google Sheet
   * Provided through google-spreadsheet package
